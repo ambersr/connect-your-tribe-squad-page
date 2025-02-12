@@ -1,25 +1,42 @@
-{% render 'partials/head.liquid', title: 'Squad page' %}
+{% render 'partials/head.liquid' %}
 
-<h2>Students</h2>
+<section class="squadpage">
 
-<!-- Genre Buttons -->
-<a href="/genre/thriller" class="button">Thriller</a>
-<a href="/genre/drama" class="button">Drama</a>
-<a href="/genre/comedy" class="button">Comedy</a>
-<a href="/genre/action" class="button">Action</a>
+  <h1>Squadpage Squad G1</h1>
+  <p>Hier vind je alle studenten van squad G1. Maak gebruik van de zoekfunctie en bekijk alle visitekaartjes.</p>
 
-<form action="https://fdnd.directus.app/items/person" method="GET">
-  <label for="fav_book">Favoriet genre:</label>
-  <input type="text" id="fav_book" name="filter[fav_book_genre][_icontains]" placeholder="Thriller">
-  <button type="submit">Zoeken</button>
-</form>
-<ul id="person-list">
+  <ul class="filter-bookgenre">
+    <li><a href="/genre/thriller" class="button">Thriller</a></li>
+    <li><a href="/genre/drama" class="button">Drama</a></li>
+    <li><a href="/genre/comedy" class="button">Comedy</a></li>
+    <li><a href="/genre/action" class="button">Action</a></li>
+    <li><a href="/genre/alle-genres" class="button">Alle genres</a></li>
+  </ul>
 
-  {% for person in persons %}
-  <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+  <ul id="person-list">
+    {% for person in persons %}
 
-  {% endfor %}
-</ul>
+    <li class="student">
+
+        <img src="{{ person.avatar }}" alt="">
+        <h2>{{ person.name }}</h2>
+        <p>{{ person.fav_book_genre }}</p>
+        <p>{{ person.bio }}</p>
+
+        <div class="buttons">
+          <a class="student" href="/student/{{ person.id }}">Visitekaartje</a>
+          <a target="_blank" href="{{ person.website }}">Github</a>
+        </div>
+
+    </li>
+  
+    {% endfor %}
+  </ul>
+
+</section>
+
+  <div class="divider"></div>
+  <p>Squadpage - Amber Schalker</p>
 
 
 {% render 'partials/foot.liquid', squads: squads %}
