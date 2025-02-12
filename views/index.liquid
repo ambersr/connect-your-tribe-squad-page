@@ -1,10 +1,25 @@
 {% render 'partials/head.liquid', title: 'Squad page' %}
 
 <h2>Students</h2>
-<ul>
+
+<!-- Genre Buttons -->
+<a href="/genre/thriller" class="button">Thriller</a>
+<a href="/genre/drama" class="button">Drama</a>
+<a href="/genre/comedy" class="button">Comedy</a>
+<a href="/genre/action" class="button">Action</a>
+
+<form action="https://fdnd.directus.app/items/person" method="GET">
+  <label for="fav_book">Favoriet genre:</label>
+  <input type="text" id="fav_book" name="filter[fav_book_genre][_icontains]" placeholder="Thriller">
+  <button type="submit">Zoeken</button>
+</form>
+<ul id="person-list">
+
   {% for person in persons %}
-    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+  <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+
   {% endfor %}
 </ul>
+
 
 {% render 'partials/foot.liquid', squads: squads %}

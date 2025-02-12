@@ -19,9 +19,10 @@ const squadResponse = await fetch('https://fdnd.directus.app/items/squad?filter=
 // Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
 const squadResponseJSON = await squadResponse.json()
 
+
+
 // Controleer de data in je console (Let op: dit is _niet_ de console van je browser, maar van NodeJS, in je terminal)
 // console.log(squadResponseJSON)
-
 
 // Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express()
@@ -58,6 +59,15 @@ app.get('/', async function (request, response) {
   // Geef ook de eerder opgehaalde squad data mee aan de view
   response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data})
 })
+
+// Filter functie op favoriete boek genre
+app.get('/genre/:fav_book_genre', async function (request, response) {
+  console.log(request.params)
+  const favBook = request.params.fav_book_genre
+  const wieLeestErNuWeerBoeken = await fetch (`https://fdnd.directus.app/items/person/?filter={"fav_book_genre":{"_icontains":"${favBook}"}}&fields=name,fav_book_genre`);
+  const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+  response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
+});
 
 // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
 app.post('/', async function (request, response) {
