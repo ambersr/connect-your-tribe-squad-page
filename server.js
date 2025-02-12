@@ -48,7 +48,7 @@ app.use(express.urlencoded({extended: true}))
 app.get('/', async function (request, response) {
   // Haal alle personen uit de WHOIS API op, van dit jaar
   const personResponse = await fetch('https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"FDND Jaar 1"}}}},{"squads":{"squad_id":{"cohort":"2425"}}}]}')
-
+s
   // En haal daarvan de JSON op
   const personResponseJSON = await personResponse.json()
   
@@ -60,21 +60,50 @@ app.get('/', async function (request, response) {
   response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data})
 })
 
-// Filter functie op favoriete boek genre
+// // Filter functie op favoriete boek genre
+// app.get('/genre/:fav_book_genre', async function (request, response) {
+//   console.log(request.params)
+//   const favBook = request.params.fav_book_genre
+//   const wieLeestErNuWeerBoeken = await fetch (`https://fdnd.directus.app/items/person/?filter={"fav_book_genre":{"_icontains":"${favBook}"}}&fields=name,id,website,fav_book_genre,avatar`);
+//   const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+//   response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
+// });
+
+// // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
+// app.post('/', async function (request, response) {
+//   // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
+//   // Er is nog geen afhandeling van POST, redirect naar GET op /
+//   response.redirect(303, '/')
+// })
+
+
 app.get('/genre/:fav_book_genre', async function (request, response) {
-  console.log(request.params)
-  const favBook = request.params.fav_book_genre
-  const wieLeestErNuWeerBoeken = await fetch (`https://fdnd.directus.app/items/person/?filter={"fav_book_genre":{"_icontains":"${favBook}"}}&fields=name,fav_book_genre`);
-  const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
-  response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
+  console.log(request.params);
+  const favBook = request.params.fav_book_genre;
+
+  // Basis-API-URL voor het ophalen van alle studenten
+  let apiUrl = 'https://fdnd.directus.app/items/person/?fields=name,id,website,fav_book_genre,avatar';
+
+  // Als het geen "alle-genres" is, pas dan het filter aan voor het specifieke genre
+  if (favBook !== "alle-genres") {
+    apiUrl += `&filter={"fav_book_genre":{"_icontains":"${favBook}"}}`;
+  }
+
+  try {
+    // Haal de gegevens op van de API
+    const wieLeestErNuWeerBoeken = await fetch(apiUrl);
+    const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+
+    // Render de data in de view
+    response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
+  } catch (error) {
+    console.error('Er is een fout opgetreden bij het ophalen van gegevens:', error);
+    response.status(500).send('Er is een fout opgetreden bij het ophalen van gegevens.');
+  }
 });
 
-// Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
-app.post('/', async function (request, response) {
-  // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
-  // Er is nog geen afhandeling van POST, redirect naar GET op /
-  response.redirect(303, '/')
-})
+
+
 
 
 // Maak een GET route voor een detailpagina met een route parameter, id
