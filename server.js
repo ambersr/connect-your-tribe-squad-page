@@ -48,7 +48,7 @@ app.use(express.urlencoded({extended: true}))
 app.get('/', async function (request, response) {
   // Haal alle personen uit de WHOIS API op, van dit jaar
   const personResponse = await fetch('https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"FDND Jaar 1"}}}},{"squads":{"squad_id":{"cohort":"2425"}}}]}')
-s
+
   // En haal daarvan de JSON op
   const personResponseJSON = await personResponse.json()
   
@@ -77,29 +77,83 @@ s
 // })
 
 
+// app.get('/genre/:fav_book_genre', async function (request, response) {
+//   console.log(request.params);
+//   const favBook = request.params.fav_book_genre;
+
+//   // Basis-API-URL voor het ophalen van alle studenten
+//   let apiUrl = 'https://fdnd.directus.app/items/person/?fields=name,id,website,fav_book_genre,avatar&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"FDND Jaar 1"}}}},{"squads":{"squad_id":{"cohort":"2425"}}},{"squads":{"squad_id":{"name":"1G"}}}]}';
+
+//   // Als het geen "alle-genres" is, pas dan het filter aan voor het specifieke genre
+//   if (favBook !== "alle-genres") {
+//     apiUrl += `&filter={"fav_book_genre":{"_icontains":"${favBook}"}}`;
+//   }
+
+//   try {
+//     // Haal de gegevens op van de API
+//     const wieLeestErNuWeerBoeken = await fetch(apiUrl);
+//     const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+
+//     // Render de data in de view
+//     response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
+//   } catch (error) {
+//     console.error('Er is een fout opgetreden bij het ophalen van gegevens:', error);
+//     response.status(500).send('Er is een fout opgetreden bij het ophalen van gegevens.');
+//   }
+// });
+
+
+// Filter functie op favoriete boek genre
+// app.get('/genre/:fav_book_genre', async function (request, response) {
+//   console.log(request.params)
+//   const favBook = request.params.fav_book_genre;
+
+//   // Controleer of het genre 'alle-genres' is
+//   let filter = {};
+//   if (favBook !== 'alle-genres') {
+//     filter = { "fav_book_genre": { "_icontains": favBook } };
+//   }
+
+//   // Fetch de gegevens van de studenten met of zonder filter
+//   const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?filter=${JSON.stringify(filter)}&fields=name,id,website,fav_book_genre,avatar`);
+//   const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+
+//   // Render de pagina met de gefilterde data
+//   response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
+// });
+
+// // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
+// app.post('/', async function (request, response) {
+//   // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
+//   // Er is nog geen afhandeling van POST, redirect naar GET op /
+//   response.redirect(303, '/')
+// })
+
+
+// Filter functie op favoriete boek genre
 app.get('/genre/:fav_book_genre', async function (request, response) {
   console.log(request.params);
   const favBook = request.params.fav_book_genre;
 
-  // Basis-API-URL voor het ophalen van alle studenten
-  let apiUrl = 'https://fdnd.directus.app/items/person/?fields=name,id,website,fav_book_genre,avatar';
-
-  // Als het geen "alle-genres" is, pas dan het filter aan voor het specifieke genre
-  if (favBook !== "alle-genres") {
-    apiUrl += `&filter={"fav_book_genre":{"_icontains":"${favBook}"}}`;
-  }
-
-  try {
-    // Haal de gegevens op van de API
-    const wieLeestErNuWeerBoeken = await fetch(apiUrl);
+  // Als het genre 'alle-genres' is, haal dan alle personen op zonder filter
+  if (favBook === 'alle-genres') {
+    const wieLeestErNuWeerBoeken = await fetch('https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={%22_and%22:[{%22squads%22:{%22squad_id%22:{%22tribe%22:{%22name%22:%22FDND%20Jaar%201%22}}}},{%22squads%22:{%22squad_id%22:{%22cohort%22:%222425%22}}},{%22squads%22:{%22squad_id%22:{%22name%22:%221G%22}}}]}&fields=id,name,avatar,bio,fav_color');
     const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
-
-    // Render de data in de view
-    response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
-  } catch (error) {
-    console.error('Er is een fout opgetreden bij het ophalen van gegevens:', error);
-    response.status(500).send('Er is een fout opgetreden bij het ophalen van gegevens.');
+    response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
+  }   else {
+    // Anders, filter de personen op het opgegeven genre
+    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"fav_book_genre":{"_icontains":"${favBook}"}},{"squads":{"squad_id":{"tribe":{"name":"FDND Jaar 1"}}}},{"squads":{"squad_id":{"cohort":"2425"}}},{"squads":{"squad_id":{"name":"1G"}}}]}&fields=id,name,avatar,bio,fav_color`);
+    const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+    response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
   }
+
+});
+
+// Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
+app.post('/', async function (request, response) {
+  // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
+  // Er is nog geen afhandeling van POST, redirect naar GET op /
+  response.redirect(303, '/');
 });
 
 
