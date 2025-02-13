@@ -24,7 +24,7 @@ body {
     --small-rounded: 15px;
     /* Voor medium ronde vormen */
     --medium-rounded: 30px;
-    --big-rounded: 100px;
+    --big-rounded: 500px;
 }
 
 /* ---------------------------------- States algemeen -------------------------------- */
@@ -270,11 +270,19 @@ a {
      transition: 0.2s ease-in-out;
      font-size: clamp(1rem, 1rem + 0vw, 1rem);
 
+     svg {
+        fill: #fff;
+     }
+
      &:hover {
-         background-color: var(--primary-highlight-color);
+         background-color: var(--secondary-background-color);
          color: var(--primary-text-color);
          transition: ease-in-out 0.2s;
          border: 1px solid var(--secondary-background-color);
+     }
+
+     &:hover svg {
+        fill: var(--primary-background-color);
      }
 
      &:active {
@@ -283,6 +291,136 @@ a {
          transition: ease-in-out 0.2s;
      }
  }
+
+ .github-link {
+     align-self: baseline;
+     font-family: var(--font-header);
+
+      /* Background glass effect */
+      background: rgba(255, 255, 255, 0.193);
+      border-radius: var(--small-rounded);
+      box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      
+     color: var(--secondary-text-color);
+     padding: 1em 1.6em;
+     border: 1px solid var(--secondary-background-color);
+     text-decoration: none;
+     gap: 0.5em;
+     display: inline-flex;
+     transition: 0.2s ease-in-out;
+     font-size: clamp(1rem, 1rem + 0vw, 1rem);
+
+     svg {
+        fill: #fff;
+     }
+
+     &:hover {
+         background-color: var(--secondary-background-color);
+         color: var(--primary-text-color);
+         transition: ease-in-out 0.2s;
+         border: 1px solid var(--secondary-background-color);
+     }
+
+     &:hover svg {
+        fill: var(--primary-background-color);
+     }
+
+     &:active {
+         background-color: var(--primary-highlight-color);
+         color: var(--primary-text-color);
+         transition: ease-in-out 0.2s;
+     }
+ }
+
+  /* Knop filters */
+  .back-link {
+      align-self: baseline;
+      font-family: var(--font-header);
+
+      /* Background glass effect */
+      background: rgba(255, 255, 255, 0.193);
+      border-radius: var(--small-rounded);
+      box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      color: var(--primary-text-color);
+      padding: 1em 1.6em;
+      border: 1px solid var(--secondary-background-color);
+      border-radius: var(--small-rounded);
+      text-decoration: none;
+      gap: 0.5em;
+      display: inline-flex;
+      transition: 0.2s ease-in-out;
+      font-size: clamp(1rem, 1rem + 0vw, 1rem);
+      align-items: center;
+
+      svg {
+        fill: var(--primary-text-color);
+      }
+
+      &:hover {
+          background-color: var(--secondary-background-color);
+          color: var(--secondary-text-color);
+          transition: ease-in-out 0.2s;
+          border: 1px solid var(--secondary-background-color);
+      }
+
+      &:hover svg{
+        fill: var(--primary-background-color);
+      }
+
+      &:active {
+          background-color: var(--secondary-background-color);
+          color: var(--secondary-text-color);
+          transition: ease-in-out 0.2s;
+          border: 1px solid var(--secondary-background-color);
+      }
+  }
+
+  .arrow-right-link {
+      align-self: baseline;
+      font-family: var(--font-header);
+
+      /* Background glass effect */
+      background: rgba(255, 255, 255, 0.193);
+      border-radius: var(--small-rounded);
+      box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      color: var(--secondary-text-color);
+      padding: 1em 1.6em;
+      border: 1px solid var(--secondary-background-color);
+      text-decoration: none;
+      gap: 0.5em;
+      display: inline-flex;
+      transition: 0.2s ease-in-out;
+      font-size: clamp(1rem, 1rem + 0vw, 1rem);
+      margin-top: 1.5em;
+
+      img {
+        width: 1.2em;
+      }
+
+      &:hover {
+          background-color: var(--primary-highlight-color);
+          color: var(--primary-text-color);
+          transition: ease-in-out 0.2s;
+          border: 1px solid var(--secondary-background-color);
+      }
+
+      &:active {
+          background-color: var(--primary-highlight-color);
+          color: var(--primary-text-color);
+          transition: ease-in-out 0.2s;
+      }
+  }
  
  .visitekaartje-link {
      align-self: baseline;
@@ -298,12 +436,27 @@ a {
      transition: 0.2s ease-in-out;
      font-size: clamp(1rem, 1rem + 0vw, 1rem);
 
+      svg {
+          fill: var(--primary-background-color);
+      }
+
      &:hover {
-         background-color: var(--primary-highlight-color);
+        /* Background glass effect */
+        background: rgba(255, 255, 255, 0.193);
+        border-radius: var(--small-rounded);
+        box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
          color: var(--primary-text-color);
          transition: ease-in-out 0.2s;
          border: 1px solid var(--secondary-background-color);
      }
+
+      &:hover svg {
+          fill: var(--secondary-background-color);
+      }
 
      &:active {
          background-color: var(--primary-highlight-color);
