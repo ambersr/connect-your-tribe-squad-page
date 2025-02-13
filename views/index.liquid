@@ -23,8 +23,7 @@
       <img class="avatar" src="{{ person.avatar | default: '/assets/default-user-avatar.svg' }}" alt="">
       <h2>{{ person.name }}</h2>
       <p><img class="book-icon" src="/assets/books-icon.svg" alt="">{{ person.fav_book_genre | default: "Alle genres" }}</p>
-      <p class="bio">{{ person.bio | default: "Eerstejaars FDND student aan de HVA." }}</p>
-
+      <div class="bio"><p>{{ person.bio | default: "Eerstejaars FDND student aan de HVA." | truncatewords: 20 }}</p></div>
 
       <div class="buttons">
         <a target="_blank" class="visitekaartje-link" href="/student/{{ person.id }}"><img src="/assets/card-icon.svg"

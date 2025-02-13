@@ -92,7 +92,11 @@ body {
              }
 
              .bio {
-                padding: 1em 0em 0em 0em;
+                overflow: hidden;
+
+                p {
+                    padding: 1em 0em 0em 0em;
+                }
              }
 
              .buttons {

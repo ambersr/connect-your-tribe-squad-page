@@ -91,7 +91,6 @@ app.get('/genre/:fav_book_genre', async function (request, response) {
     const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
     response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
   }
-
 });
 
 // Maak een GET route voor een detailpagina met een route parameter, id
