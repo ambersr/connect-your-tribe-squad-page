@@ -1,6 +1,8 @@
 body {
     background-image: url("/assets/blue-gradient-background.jpeg");
-    background-size: cover;
+     background-size: 100% 120%;
+     /* De afbeelding wordt exact geschaald naar de breedte en hoogte van de container */
+     background-position: 50% 0%;
  }
 
 .squadpage {
@@ -68,9 +70,16 @@ body {
              backdrop-filter: blur(5px);
              -webkit-backdrop-filter: blur(5px);
              border: 1px solid rgba(255, 255, 255, 0.3);
+             
+             transition: .2s ease-in-out;
 
               @media screen and (min-width: 960px) {
                   width: 100%;
+              }
+
+              &:hover {
+                transform: translateY(-.5em);
+                transition: .2s ease-in-out;
               }
 
              .avatar {
