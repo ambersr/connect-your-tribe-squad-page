@@ -22,6 +22,9 @@
         <h2>{{ person.name }}</h2>
         <p>{{ person.fav_book_genre }}</p>
         <p>{{ person.bio }}</p>
+      <img class="avatar" src="{{ person.avatar | default: '/assets/default-user-avatar.svg' }}" alt="">
+      <p><img class="book-icon" src="/assets/books-icon.svg" alt="">{{ person.fav_book_genre | default: "Alle genres" }}</p>
+      <p class="bio">{{ person.bio | default: "Eerstejaars FDND student aan de HVA." }}</p>
 
         <div class="buttons">
           <a class="student" href="/student/{{ person.id }}">Visitekaartje</a>
