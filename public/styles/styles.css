@@ -1,0 +1,106 @@
+body {
+    background-image: url("/assets/blue-gradient-background.jpeg");
+    background-size: cover;
+ }
+
+.squadpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        text-align: center;
+    }
+
+    .inleiding {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: .5em;
+        justify-content: center;
+
+         @media screen and (min-width: 960px) {
+             width: 40%;
+         }
+    }
+
+    .label {
+        display: flex;
+        padding: 2.5em 0em 0em 0em;
+    }
+
+    .filter-bookgenre {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+        padding: 1.5em 0em;
+
+         @media screen and (min-width: 960px) {
+            padding: 2.5em 0em 3.5em 0em;
+         }
+    }
+
+    #person-list {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         width: 100%;
+
+        gap: 4em;
+        padding: 2.5em 0em 0em 0em;
+
+        @media screen and (min-width: 640px) {
+            gap: 4em 2em;
+        }
+        
+         li {
+             list-style-type: none;
+             padding: 2em;
+             width: 100%;
+
+             /* Background glass effect */
+             background: rgba(255, 255, 255, 0.193);
+             border-radius: 16px;
+             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+             backdrop-filter: blur(5px);
+             -webkit-backdrop-filter: blur(5px);
+             border: 1px solid rgba(255, 255, 255, 0.3);
+
+              @media screen and (min-width: 960px) {
+                  width: 100%;
+              }
+
+             .avatar {
+                border-radius: var(--big-rounded);
+                width: 7.5em;
+                height: 7.5em;
+                object-fit: cover;
+                margin: -5em 0em 2em 0em;
+             }
+
+             p {
+                text-align: left;
+                display: flex;
+                gap: .5em;
+
+                 .book-icon {
+                     width: 1.3em;
+                 }
+             }
+
+             .bio {
+                padding: 1em 0em 0em 0em;
+             }
+
+             .buttons {
+                display: flex;
+                flex-direction: row;
+                gap: .7em;
+                padding: 1em 0em 0em 0em;
+             }
+         }
+    }
+}
