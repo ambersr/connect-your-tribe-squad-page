@@ -1,16 +1,18 @@
 {% render 'partials/head.liquid' %}
 
-<section class="squadpage">
+<section class="squadpage width-top-btm">
 
   <h1>Squadpage Squad G1</h1>
-  <p>Hier vind je alle studenten van squad G1. Maak gebruik van de zoekfunctie en bekijk alle visitekaartjes.</p>
+  <p class="inleiding">Hier vind je alle studenten van squad G1. Filter op favoriete boekgenre en bekijk de
+    visitekaartjes</p>
+  <p class="label">Filter op favoriete boek genre:</p>
 
   <ul class="filter-bookgenre">
-    <li><a href="/genre/thriller" class="button">Thriller</a></li>
-    <li><a href="/genre/drama" class="button">Drama</a></li>
-    <li><a href="/genre/comedy" class="button">Comedy</a></li>
-    <li><a href="/genre/action" class="button">Action</a></li>
-    <li><a href="/genre/alle-genres" class="button">Alle genres</a></li>
+    <li><a class="filter-link" href="/genre/alle-genres" class="button">Alle genres</a></li>
+    <li><a class="filter-link" href="/genre/thriller" class="button">Thriller</a></li>
+    <li><a class="filter-link" href="/genre/drama" class="button">Drama</a></li>
+    <li><a class="filter-link" href="/genre/comedy" class="button">Comedy</a></li>
+    <li><a class="filter-link" href="/genre/action" class="button">Action</a></li>
   </ul>
 
   <ul id="person-list">
@@ -18,28 +20,28 @@
 
     <li class="student">
 
-        <img src="{{ person.avatar }}" alt="">
-        <h2>{{ person.name }}</h2>
-        <p>{{ person.fav_book_genre }}</p>
-        <p>{{ person.bio }}</p>
       <img class="avatar" src="{{ person.avatar | default: '/assets/default-user-avatar.svg' }}" alt="">
+      <h2>{{ person.name }}</h2>
       <p><img class="book-icon" src="/assets/books-icon.svg" alt="">{{ person.fav_book_genre | default: "Alle genres" }}</p>
       <p class="bio">{{ person.bio | default: "Eerstejaars FDND student aan de HVA." }}</p>
 
-        <div class="buttons">
-          <a class="student" href="/student/{{ person.id }}">Visitekaartje</a>
-          <a target="_blank" href="{{ person.website }}">Github</a>
-        </div>
+
+      <div class="buttons">
+        <a target="_blank" class="visitekaartje-link" href="/student/{{ person.id }}"><img src="/assets/card-icon.svg"
+            alt=""></a>
+        <a target="_blank" class="github-link" href="{{ person.website }}"><img src="/assets/github-icon.svg"
+            alt=""></a>
+      </div>
 
     </li>
-  
+
     {% endfor %}
   </ul>
 
 </section>
 
-  <div class="divider"></div>
-  <p>Squadpage - Amber Schalker</p>
+<div class="divider"></div>
+<p>Squadpage - Amber Schalker</p>
 
 
 {% render 'partials/foot.liquid', squads: squads %}
