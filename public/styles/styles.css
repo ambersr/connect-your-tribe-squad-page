@@ -107,6 +107,96 @@ body {
              }
          }
     }
+}
+
+/* ------------------------------------- Student.liquid -------------------------------------- */
+
+main {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .link-back {
+        margin: 0em 0em 2em 0em;
+        width: 100%;
+
+         @media screen and (min-width: 960px) {
+              margin: 0em 0em -2em 0em;
+         }
+        
+        a {
+            display: inline-flex;
+            gap: .7em;
+            text-decoration: none;
+        }
+    }
+
+    .detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+
+        h1 {
+            text-align: center;
+            padding: 0.5em 0em 0em 0em;
+        }
+
+        .profile {
+            border-radius: var(--big-rounded);
+            width: 100%;
+
+            @media screen and (min-width: 450px) {
+                width: 25em;
+                height: 25em;
+                object-fit: cover;
+            }
+
+             @media screen and (min-width: 960px) {
+                 width: 25em;
+                 height: 25em;
+                 object-fit: cover;
+             }
+        }
+
+        .bio {
+            display: flex;
+            justify-content: center;
+
+            p {
+                max-width: 100%;
+                text-align: center;
+
+                 @media screen and (min-width: 960px) {
+                     max-width: 75%;
+                 }
+            }
+        }
+
+        .meer-info {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: center;
+            padding: 2em 0em 0em 0em;
+
+            p {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                border: 1px solid #fff;
+                border-radius: 10px;
+                padding: 0.7em 1.3em;
+            }
+        }
+    }
+}
+
+/* ---------------------------------- Footer -------------------------------------- */
+
 footer {
 
     .divider {
