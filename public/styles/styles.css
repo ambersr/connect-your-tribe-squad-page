@@ -107,4 +107,18 @@ body {
              }
          }
     }
+footer {
+
+    .divider {
+        padding: 1p;
+        width: 100%;
+        height: 1px;
+        background-color: #ffffff;
+    }
+
+    p {
+        text-align: center;
+        padding: 1em 0em 0em 0em;
+    }
+
 }
