@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
     scroll-behavior: smooth;
+    padding: 0;
+    margin: 0;
 }
 
 body {
@@ -22,6 +24,7 @@ body {
     --small-rounded: 15px;
     /* Voor medium ronde vormen */
     --medium-rounded: 30px;
+    --big-rounded: 100px;
 }
 
 /* ---------------------------------- States algemeen -------------------------------- */
@@ -105,7 +108,7 @@ h5,
 H6 {
     font-family: var(--font-header);
     color: var(--primary-text-color);
-    margin: 0em 0em 1em 0em;
+    margin: 0em 0em .5em 0em;
     padding: 0;
 }
 
@@ -115,7 +118,7 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(1.375rem, 1.2054rem + 0.7143vw, 1.875rem);
+    font-size: clamp(1.0rem, 1.2054rem + 0.7143vw, 1.3rem);
     line-height: 110%;
 }
 
@@ -205,11 +208,90 @@ a {
  .filter-link {
      align-self: baseline;
      font-family: var(--font-header);
+    
+     /* Background glass effect */
+     background: rgba(255, 255, 255, 0.193);
+     border-radius: var(--small-rounded);
+     box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+     backdrop-filter: blur(5px);
+     -webkit-backdrop-filter: blur(5px);
+     border: 1px solid rgba(255, 255, 255, 0.3);
+
+     color: var(--primary-text-color);
+     padding: 1em 1.6em;
+     border: 1px solid var(--secondary-background-color);
+     border-radius: var(--small-rounded);
+     text-decoration: none;
+     gap: 0.5em;
+     display: inline-flex;
+     transition: 0.2s ease-in-out;
+     font-size: clamp(1rem, 1rem + 0vw, 1rem);
+
+     &:hover {
+         background-color: var(--secondary-background-color);
+         color: var(--secondary-text-color);
+         transition: ease-in-out 0.2s;
+         border: 1px solid var(--secondary-background-color);
+     }
+
+     &:active {
+         background-color: var(--secondary-background-color);
+         color: var(--secondary-text-color);
+         transition: ease-in-out 0.2s;
+         border: 1px solid var(--secondary-background-color);
+     }
+ }
+
+ .active {
      background-color: var(--secondary-background-color);
      color: var(--secondary-text-color);
-     padding: 0.9em 1.9em;
+     transition: ease-in-out 0.2s;
      border: 1px solid var(--secondary-background-color);
-     border-radius: var(--big-rounded);
+ }
+
+  .github-link {
+     align-self: baseline;
+     font-family: var(--font-header);
+
+      /* Background glass effect */
+      background: rgba(255, 255, 255, 0.193);
+      border-radius: var(--small-rounded);
+      box-shadow: 0 4px 30px rgba(108, 9, 9, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      
+     color: var(--secondary-text-color);
+     padding: 1em 1.6em;
+     border: 1px solid var(--secondary-background-color);
+     text-decoration: none;
+     gap: 0.5em;
+     display: inline-flex;
+     transition: 0.2s ease-in-out;
+     font-size: clamp(1rem, 1rem + 0vw, 1rem);
+
+     &:hover {
+         background-color: var(--primary-highlight-color);
+         color: var(--primary-text-color);
+         transition: ease-in-out 0.2s;
+         border: 1px solid var(--secondary-background-color);
+     }
+
+     &:active {
+         background-color: var(--primary-highlight-color);
+         color: var(--primary-text-color);
+         transition: ease-in-out 0.2s;
+     }
+ }
+ 
+ .visitekaartje-link {
+     align-self: baseline;
+     font-family: var(--font-header);
+     background-color: var(--secondary-background-color);
+     color: var(--secondary-text-color);
+     padding: 1em 1.6em;
+     border: 1px solid var(--secondary-background-color);
+     border-radius: var(--small-rounded);
      text-decoration: none;
      gap: 0.5em;
      display: inline-flex;
