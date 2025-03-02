@@ -98,18 +98,20 @@ app.get('/genre/:fav_book_genre', async function (request, response) {
   const cohort = "2425";
   const squadName = "1G";
 
+  let wieLeestErNuWeerBoeken;
+
   // Als het genre 'alle-genres' is, haal dan alle personen op zonder filter
   if (favBook === 'alle-genres') {
-    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
-    const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
-    response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
-  }   else {
+    wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
+  } else {
     // Anders, filter de personen op het opgegeven genre
-    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"fav_book_genre":{"_icontains":"${favBook}"}},{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
-    const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
-    response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
+    wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"fav_book_genre":{"_icontains":"${favBook}"}},{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
   }
+
+  const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
+  response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
 });
+
 
 // Maak een GET route voor een detailpagina met een route parameter, id
 // Zie de documentatie van Express voor meer info: https://expressjs.com/en/guide/routing.html#route-parameters
