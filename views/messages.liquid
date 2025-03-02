@@ -1,0 +1,13 @@
+het werkt
+
+<form action="/berichten" method="POST">
+    <label>Label</label><br>
+    <input type="text" name="message">
+    <button>Submit</button>
+</form>
+
+{% for message in messages %}
+
+    <p>{{ message }}</p>
+
+{% endfor %}

@@ -66,14 +66,28 @@ app.post('/', async function (request, response) {
   response.redirect(303, '/');
 });
 
-// // Filter functie op favoriete boek genre
-// app.get('/genre/:fav_book_genre', async function (request, response) {
-//   console.log(request.params)
-//   const favBook = request.params.fav_book_genre
-//   const wieLeestErNuWeerBoeken = await fetch (`https://fdnd.directus.app/items/person/?filter={"fav_book_genre":{"_icontains":"${favBook}"}}&fields=name,id,website,fav_book_genre,avatar`);
-//   const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
-//   response.render('index.liquid', {persons: wieLeestErNuWeerBoekenJSON.data});
-// });
+
+
+
+
+// Array aanmaken
+let messages = []
+
+app.get('/berichten', async function (request, response) {
+
+  response.render('messages.liquid', {messages: messages})
+})
+
+app.post('/berichten', async function (request, response) {
+
+   messages.push(request.body.message)
+
+  response.redirect(303, '/berichten');
+});
+
+
+
+
 
 // Filter functie op favoriete boek genre
 app.get('/genre/:fav_book_genre', async function (request, response) {
