@@ -94,14 +94,18 @@ app.get('/genre/:fav_book_genre', async function (request, response) {
   console.log(request.params);
   const favBook = request.params.fav_book_genre; // de variabele favBook haalt uit de fav_book_genre een genre op
 
+  const tribe = "FDND Jaar 1";
+  const cohort = "2425";
+  const squadName = "1G";
+
   // Als het genre 'alle-genres' is, haal dan alle personen op zonder filter
   if (favBook === 'alle-genres') {
-    const wieLeestErNuWeerBoeken = await fetch('https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={%22_and%22:[{%22squads%22:{%22squad_id%22:{%22tribe%22:{%22name%22:%22FDND%20Jaar%201%22}}}},{%22squads%22:{%22squad_id%22:{%22cohort%22:%222425%22}}},{%22squads%22:{%22squad_id%22:{%22name%22:%221G%22}}}]}&fields=id,name,avatar,bio,fav_book_genre');
+    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
     const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
     response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
   }   else {
     // Anders, filter de personen op het opgegeven genre
-    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"fav_book_genre":{"_icontains":"${favBook}"}},{"squads":{"squad_id":{"tribe":{"name":"FDND Jaar 1"}}}},{"squads":{"squad_id":{"cohort":"2425"}}},{"squads":{"squad_id":{"name":"1G"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
+    const wieLeestErNuWeerBoeken = await fetch(`https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter={"_and":[{"fav_book_genre":{"_icontains":"${favBook}"}},{"squads":{"squad_id":{"tribe":{"name":"${tribe}"}}}},{"squads":{"squad_id":{"cohort":"${cohort}"}}},{"squads":{"squad_id":{"name":"${squadName}"}}}]}&fields=id,name,avatar,bio,fav_book_genre`);
     const wieLeestErNuWeerBoekenJSON = await wieLeestErNuWeerBoeken.json();
     response.render('index.liquid', { persons: wieLeestErNuWeerBoekenJSON.data });
   }
